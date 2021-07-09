@@ -10,7 +10,6 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Data
 @Entity
@@ -29,6 +28,32 @@ public class User implements UserDetails {
                     name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "courses_to_see",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "course_id", referencedColumnName = "id"))
+    private Set<Course> waiting;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "my_created_courses",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "course_id", referencedColumnName = "id"))
+    private Set<Course> createdCurses;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "saw_videos_by_user",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "videos_id", referencedColumnName = "id"))
+    private Set<Video> sawVideos;
 
     private String password;
     private String username;
@@ -37,31 +62,35 @@ public class User implements UserDetails {
     private boolean isAccountNonLocked;
     private boolean isCredentialsNonExpired;
     private boolean isEnabled;
+    //
+    private String youtube;
+    private String twitter;
+    private String facebook;
+    private String github;
 
-    public User(Set<Role> roles,
-                String password,
-                String username,
-                boolean isAccountNonExpired,
-                String email,
-                boolean isAccountNonLocked,
-                boolean isCredentialsNonExpired,
-                boolean isEnabled) {
+    public User(Set<Role> roles, String password, String username,
+                String email, boolean isAccountNonExpired,
+                boolean isAccountNonLocked, boolean isCredentialsNonExpired,
+                boolean isEnabled, String youtube, String twitter,
+                String facebook, String github) {
         this.roles = roles;
         this.password = password;
         this.username = username;
+        this.email = email;
         this.isAccountNonExpired = isAccountNonExpired;
         this.isAccountNonLocked = isAccountNonLocked;
         this.isCredentialsNonExpired = isCredentialsNonExpired;
         this.isEnabled = isEnabled;
-        this.email = email;
+        this.youtube = youtube;
+        this.twitter = twitter;
+        this.facebook = facebook;
+        this.github = github;
     }
 
     public User() {
 
     }
-    public User(Set<Role> roles) {
-        this.roles= roles;
-    }
+
 
 
     @Override

@@ -1,11 +1,7 @@
 package com.germany.paradigmaindie.undefinedlearn.config;
 
-import com.germany.paradigmaindie.undefinedlearn.models.Privilege;
-import com.germany.paradigmaindie.undefinedlearn.models.Role;
-import com.germany.paradigmaindie.undefinedlearn.models.User;
-import com.germany.paradigmaindie.undefinedlearn.repositories.PrivilegeRepository;
-import com.germany.paradigmaindie.undefinedlearn.repositories.RoleRepository;
-import com.germany.paradigmaindie.undefinedlearn.repositories.UserRepository;
+import com.germany.paradigmaindie.undefinedlearn.models.*;
+import com.germany.paradigmaindie.undefinedlearn.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -22,24 +18,43 @@ public class SetupDataLoader implements
 
     boolean alreadySetup = false;
 
-    @Autowired
-    private UserRepository userRepository;
 
-    @Autowired
-    private RoleRepository roleRepository;
+    private CategoriesRepository categoriesRepository;
 
-    @Autowired
+    private CourseRepository courseRepository;
+
     private PrivilegeRepository privilegeRepository;
 
-    @Autowired
+    private RoleRepository roleRepository;
+
+    private UserRepository userRepository;
+
+    private VideoRepository videoRepository;
+
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public SetupDataLoader(CategoriesRepository categoriesRepository,
+                           CourseRepository courseRepository,
+                           PrivilegeRepository privilegeRepository,
+                           RoleRepository roleRepository,
+                           UserRepository userRepository,
+                           VideoRepository videoRepository,
+                           PasswordEncoder passwordEncoder) {
+        this.categoriesRepository = categoriesRepository;
+        this.courseRepository = courseRepository;
+        this.privilegeRepository = privilegeRepository;
+        this.roleRepository = roleRepository;
+        this.userRepository = userRepository;
+        this.videoRepository = videoRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Transactional
     Privilege createPrivilegeIfNotFound(String name) {
 
         Optional<Privilege> privilege = privilegeRepository.findByName(name);
         if (!privilege.isPresent()) {
-
             Privilege privilegeUnpacket = new Privilege(name);
             privilegeRepository.save(privilegeUnpacket);
             return privilegeUnpacket;
@@ -63,6 +78,54 @@ public class SetupDataLoader implements
     }
 
     @Transactional
+    User createUser(Optional<Role> roles, Course coursesCreated){
+        //USERS Test Creation
+        User user = new User();
+        user.setUsername("Test");
+        user.setPassword(passwordEncoder.encode("123"));
+        user.setEmail("t@t.com");
+        user.setRoles(Arrays.asList(roles).stream().map(role -> role.get()).collect(Collectors.toSet()));
+        user.setCreatedCurses(Arrays.asList(coursesCreated).stream().collect(Collectors.toSet()));
+        user.setEnabled(true);
+        user.setCredentialsNonExpired(true);
+        user.setAccountNonExpired(true);
+        user.setAccountNonLocked(true);
+        user.setFacebook("faceUrl");
+        user.setGithub("gitUrl");
+        user.setYoutube("youtubeUrl");
+        return userRepository.save(user);
+    }
+
+    @Transactional
+    Video creaVideo(){
+        //VIDEO Test
+        Video video = new Video();
+        video.setName("testVideo");
+        video.setUrl("VideUrl");
+        video.setTags("testTags");
+        return videoRepository.save(video);
+    }
+
+    @Transactional
+    Category creacategorias(){
+        //VIDEO Test
+        Category category = new Category();
+        category.setName("Docker Test");
+        return categoriesRepository.save(category);
+    }
+
+    @Transactional
+    Course creaCourses(Video video, Category category){
+        Course course = new Course();
+        course.setName("Course Name");
+        course.setDescription("Course Description");
+        course.setTags("course tag example");
+        course.setVideos(Arrays.asList(video).stream().collect(Collectors.toSet()));
+        course.setCategorias(Arrays.asList(category).stream().collect(Collectors.toSet()));
+        return courseRepository.save(course);
+    }
+
+    @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
         if (alreadySetup) {
@@ -71,23 +134,15 @@ public class SetupDataLoader implements
         Privilege readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE");
         Privilege writePrivilege = createPrivilegeIfNotFound("WRITE_PRIVILEGE");
 
-        List<Privilege> adminPrivileges = Arrays.asList(readPrivilege, writePrivilege);
-        createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
+
+        createRoleIfNotFound("ROLE_ADMIN", Arrays.asList(readPrivilege, writePrivilege));
         createRoleIfNotFound("ROLE_USER", Arrays.asList(readPrivilege));
 
+        Video video = creaVideo();
+        Category category = creacategorias();
+        Course courseCreated = creaCourses(video,category);
 
-        Optional<Role> adminRole = roleRepository.findByName("ROLE_ADMIN");
-
-        User user = new User();
-        user.setUsername("Test");
-        user.setPassword(passwordEncoder.encode("123"));
-        user.setEmail("t@t.com");
-        user.setRoles(Arrays.asList(adminRole).stream().map(role -> role.get()).collect(Collectors.toSet()));
-        user.setEnabled(true);
-        user.setCredentialsNonExpired(true);
-        user.setAccountNonExpired(true);
-        user.setAccountNonLocked(true);
-        userRepository.save(user);
+        createUser(roleRepository.findByName("ROLE_ADMIN"),courseCreated);
 
         alreadySetup = true;
     }
