@@ -6,6 +6,7 @@ import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,5 +27,10 @@ public class UsersController {
     @PreAuthorize("hasAnyAuthority('READ_PRIVILEGE')")
     public List<User> getAllUsers() throws NotFoundException {
         return appUserDetailsService.getAllUsers();
+    }
+
+    @PostMapping()
+    public User singup(User user){
+        return null;
     }
 }
