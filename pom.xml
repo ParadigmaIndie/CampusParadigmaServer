@@ -12,11 +12,11 @@
     </parent>
 
     <groupId>com.germany.paradigmaindie</groupId>
-    <artifactId>CampusParadigma</artifactId>
+    <artifactId>CampusParadigmaServer</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>undefinedLearn</name>
-    <description>Api Restfull for Paradignam Indie Projekt Undefined Learn</description>
+    <description>Api Restfull for Paradignam Indie Projekt Campus Paradigma</description>
 
     <properties>
         <java.version>11</java.version>
