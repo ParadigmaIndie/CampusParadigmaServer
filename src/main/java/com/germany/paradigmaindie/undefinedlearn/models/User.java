@@ -35,7 +35,7 @@ public class User implements UserDetails {
                     name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
                     name = "course_id", referencedColumnName = "id"))
-    private Set<Course> waiting;
+    private Set<Course> waitingCourses;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -44,7 +44,7 @@ public class User implements UserDetails {
                     name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
                     name = "course_id", referencedColumnName = "id"))
-    private Set<Course> createdCurses;
+    private Set<Course> createdCourses;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -68,12 +68,25 @@ public class User implements UserDetails {
     private String facebook;
     private String github;
 
-    public User(Set<Role> roles, String password, String username,
-                String email, boolean isAccountNonExpired,
-                boolean isAccountNonLocked, boolean isCredentialsNonExpired,
-                boolean isEnabled, String youtube, String twitter,
-                String facebook, String github) {
+    public User(Set<Role> roles,
+                Set<Course> waitingCourses,
+                Set<Course> createdCourses,
+                Set<Video> sawVideos,
+                String password,
+                String username,
+                String email,
+                boolean isAccountNonExpired,
+                boolean isAccountNonLocked,
+                boolean isCredentialsNonExpired,
+                boolean isEnabled,
+                String youtube,
+                String twitter,
+                String facebook,
+                String github) {
         this.roles = roles;
+        this.waitingCourses = waitingCourses;
+        this.createdCourses = createdCourses;
+        this.sawVideos = sawVideos;
         this.password = password;
         this.username = username;
         this.email = email;
@@ -90,8 +103,6 @@ public class User implements UserDetails {
     public User() {
 
     }
-
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

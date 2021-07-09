@@ -85,7 +85,7 @@ public class SetupDataLoader implements
         user.setPassword(passwordEncoder.encode("123"));
         user.setEmail("t@t.com");
         user.setRoles(Arrays.asList(roles).stream().map(role -> role.get()).collect(Collectors.toSet()));
-        user.setCreatedCurses(Arrays.asList(coursesCreated).stream().collect(Collectors.toSet()));
+        user.setCreatedCourses(Arrays.asList(coursesCreated).stream().collect(Collectors.toSet()));
         user.setEnabled(true);
         user.setCredentialsNonExpired(true);
         user.setAccountNonExpired(true);
@@ -131,9 +131,8 @@ public class SetupDataLoader implements
         if (alreadySetup) {
             return;
         }
-        Privilege readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE");
-        Privilege writePrivilege = createPrivilegeIfNotFound("WRITE_PRIVILEGE");
-
+        Privilege readPrivilege = createPrivilegeIfNotFound("READ_USER_PRIVILEGE");
+        Privilege writePrivilege = createPrivilegeIfNotFound("WRITE_USER_PRIVILEGE");
 
         createRoleIfNotFound("ROLE_ADMIN", Arrays.asList(readPrivilege, writePrivilege));
         createRoleIfNotFound("ROLE_USER", Arrays.asList(readPrivilege));

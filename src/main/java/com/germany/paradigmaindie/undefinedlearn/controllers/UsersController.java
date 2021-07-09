@@ -24,9 +24,25 @@ public class UsersController {
     }
 
     @GetMapping()
-    @PreAuthorize("hasAnyAuthority('READ_PRIVILEGE')")
+    @PreAuthorize("hasAnyAuthority('READ_USER_PRIVILEGE')")
     public List<User> getAllUsers() throws NotFoundException {
         return appUserDetailsService.getAllUsers();
+    }
+
+    public String deleteUser(){
+        return null;
+    }
+
+    public User updatedUser(){
+        return null;
+    }
+
+    public User getUser(){
+        return null;
+    }
+
+    public User createUser(){
+        return null;
     }
 
     @PostMapping()

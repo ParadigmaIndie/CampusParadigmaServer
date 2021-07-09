@@ -1,6 +1,5 @@
 package com.germany.paradigmaindie.undefinedlearn.repositories;
 
-import com.germany.paradigmaindie.undefinedlearn.models.User;
 import com.germany.paradigmaindie.undefinedlearn.models.Video;
 import org.springframework.data.jpa.repository.JpaRepository;
 
