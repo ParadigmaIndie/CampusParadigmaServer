@@ -16,9 +16,6 @@ import java.util.List;
 @RequestMapping("/")
 public class TemplateController {
 
-
-
-
     @GetMapping("login")
     public String getLoginView(){
         return "login";
@@ -28,6 +25,5 @@ public class TemplateController {
     public String getCoursesView(){
         return "courses";
     }
-
 
 }
