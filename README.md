@@ -7,7 +7,7 @@ Kevin Rey @SantiRey
 Manuel Guil @ImalGil
 
 ## Description
-This software has been created as part of a personal project for the Paradigma Indie community. This project has no commercial spirit, it is maintained by the community and for the community. for that reason all contributions to it are totally welcome.
+This software has been created as part of a personal project for the Paradigma Indie community. This project has no commercial approach, it is maintained by the community and for the community. for that reason all contributions to it are totally welcome.
 
 ## Software
 
@@ -25,6 +25,8 @@ This project use Swagger as Api Documentation it is enable under the url ***```h
 
 ## Get started
 ### DOCKER
+In order to use the docker images it is necessary to follow the following information. This project consists of a divided docker file which creates the image then exports the war in a tomcat container and has a Database service.
+
 1. clone the repository
 
    ```git clone```
@@ -42,6 +44,8 @@ This project use Swagger as Api Documentation it is enable under the url ***```h
    ```http://localhost:8080/campusparadigma/swagger-ui.html```
 
 ### Run the software
+The project uses Spring Framework this means that it can be executed locally, with use of maven.
+
 1. clone the repository
 
    ```git clone```
@@ -58,7 +62,9 @@ This project use Swagger as Api Documentation it is enable under the url ***```h
    
    ```http://localhost:8080/swagger-ui.html```
 
-### get the war
+### Get the war
+The project is packaged in a war file which can be exported to different servers.
+
 1. clone the repository
 
    ```git clone```
