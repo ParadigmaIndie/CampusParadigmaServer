@@ -36,7 +36,7 @@ public class SegurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .formLogin()// Based Auth Session ID expired 30 minutes
-                    .loginPage("/login").permitAll();
+                    .loginPage("/login").permitAll().and().httpBasic();
 
         http
                 .csrf().disable()
