@@ -1,0 +1,30 @@
+version: "3.9"
+services:
+  tomcat:
+    image: tomcat
+    container_name: campusparadigma_server
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"
+    depends_on:
+      - campusparadigma_db
+    networks:
+      - campusparadigma_net
+
+  campusparadigma_db:
+    image: postgres
+    container_name: campusparadigma_db
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+    volumes:
+      - $PWD/db_data:/var/lib/postgresql/data
+    networks:
+      - campusparadigma_net
+
+networks:
+  campusparadigma_net:
