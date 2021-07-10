@@ -24,6 +24,23 @@ Until the Production bunle the data base is enable in memory.
 This project use Swagger as Api Documentation it is enable under the url ***```http://localhost:8080/swagger-ui.html```***
 
 ## Get started
+### DOCKER
+1. clone the repository
+
+   ```git clone```
+   
+2. go into the project folder
+
+   ```cd CampusParadigmaServer```
+   
+3. run der project with docker
+
+   ```docker compose up -d```
+   
+4. There is a Swagger enable endpoint in order to have the documentation of the Http Request of the Project
+
+   ```http://localhost:8080/campusparadigma/swagger-ui.html```
+
 ### Run the software
 1. clone the repository
 
