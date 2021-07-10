@@ -2,12 +2,15 @@ package com.germany.paradigmaindie.ParadigmaIndieServer.models;
 
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Data
+@Setter
+@Getter
 public class Role {
 
     @Id
@@ -29,11 +32,6 @@ public class Role {
     }
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "roles_privileges",
-            joinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "privilege_id", referencedColumnName = "id"))
+    @JoinTable()
     private Collection<Privilege> privileges;
 }

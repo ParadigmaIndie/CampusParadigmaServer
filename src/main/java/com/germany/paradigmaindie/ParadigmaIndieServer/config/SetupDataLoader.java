@@ -6,6 +6,7 @@ import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.lang.NonNullApi;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -93,6 +94,7 @@ public class SetupDataLoader implements
         user.setAccountNonExpired(true);
         user.setAccountNonLocked(true);
         user.setFacebook("faceUrl");
+        user.setTwitter("twitterurl");
         user.setGithub("gitUrl");
         user.setYoutube("youtubeUrl");
         return userRepository.save(user);
