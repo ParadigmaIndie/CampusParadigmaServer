@@ -1,19 +1,22 @@
 package com.germany.paradigmaindie.ParadigmaIndieServer.models;
 
-import lombok.Data;
+
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @NoArgsConstructor
-@Data
+@Setter
+@Getter
 public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long Id;
+    private long id;
 
     private String name;
 
@@ -21,22 +24,10 @@ public class Course {
 
     private String tags;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "courses_videos",
-            joinColumns = @JoinColumn(
-                    name = "course_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "video_id", referencedColumnName = "id"))
+    @ManyToMany(cascade = CascadeType.ALL)
     private Set<Video> videos;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "courses_categories",
-            joinColumns = @JoinColumn(
-                    name = "course_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "categorie_id", referencedColumnName = "id"))
+    @ManyToMany(cascade = CascadeType.ALL)
     private Set<Category> categorias;
 
 

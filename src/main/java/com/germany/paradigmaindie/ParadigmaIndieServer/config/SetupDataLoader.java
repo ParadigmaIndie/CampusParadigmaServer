@@ -2,6 +2,7 @@ package com.germany.paradigmaindie.ParadigmaIndieServer.config;
 
 import com.germany.paradigmaindie.ParadigmaIndieServer.models.*;
 import com.germany.paradigmaindie.ParadigmaIndieServer.repositories.*;
+import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class SetupDataLoader implements
@@ -54,7 +56,7 @@ public class SetupDataLoader implements
     Privilege createPrivilegeIfNotFound(String name) {
 
         Optional<Privilege> privilege = privilegeRepository.findByName(name);
-        if (!privilege.isPresent()) {
+        if (privilege.isEmpty()) {
             Privilege privilegeUnpacket = new Privilege(name);
             privilegeRepository.save(privilegeUnpacket);
             return privilegeUnpacket;
@@ -67,7 +69,7 @@ public class SetupDataLoader implements
             String name, Collection<Privilege> privileges) {
 
         Optional<Role> role = roleRepository.findByName(name);
-        if (!role.isPresent()) {
+        if (role.isEmpty()) {
 
             Role uRole = new Role(name);
             uRole.setPrivileges(privileges);
@@ -84,8 +86,8 @@ public class SetupDataLoader implements
         user.setUsername("Test");
         user.setPassword(passwordEncoder.encode("123"));
         user.setEmail("t@t.com");
-        user.setRoles(Arrays.asList(roles).stream().map(role -> role.get()).collect(Collectors.toSet()));
-        user.setCreatedCourses(Arrays.asList(coursesCreated).stream().collect(Collectors.toSet()));
+        user.setRoles(Stream.of(roles).map(role -> role.get()).collect(Collectors.toSet()));
+        user.setCreatedCourses(Stream.of(coursesCreated).collect(Collectors.toSet()));
         user.setEnabled(true);
         user.setCredentialsNonExpired(true);
         user.setAccountNonExpired(true);
@@ -103,6 +105,7 @@ public class SetupDataLoader implements
         video.setName("testVideo");
         video.setUrl("VideUrl");
         video.setTags("testTags");
+        video.setDescription("This is the description the video");
         return videoRepository.save(video);
     }
 
@@ -120,13 +123,13 @@ public class SetupDataLoader implements
         course.setName("Course Name");
         course.setDescription("Course Description");
         course.setTags("course tag example");
-        course.setVideos(Arrays.asList(video).stream().collect(Collectors.toSet()));
-        course.setCategorias(Arrays.asList(category).stream().collect(Collectors.toSet()));
+        course.setVideos(Stream.of(video).collect(Collectors.toSet()));
+        course.setCategorias(Stream.of(category).collect(Collectors.toSet()));
         return courseRepository.save(course);
     }
 
     @Transactional
-    public void onApplicationEvent(ContextRefreshedEvent event) {
+    public void onApplicationEvent(@NotNull ContextRefreshedEvent event) {
 
         if (alreadySetup) {
             return;
