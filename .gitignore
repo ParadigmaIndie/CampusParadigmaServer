@@ -8,7 +8,7 @@ target/
 db_data/*
 db_data
 db_data/
-
+/db_data
 ### STS ###
 .apt_generated
 .classpath
