@@ -28,9 +28,7 @@ public class CategoryController {
 
     @PostMapping
     public Category createCategory(@RequestBody @NotNull Category category) throws DuplicateMemberException {
-
             return categorieService.createCategory(category);
-
     }
 
     @PutMapping(path = "{categoryid}")
