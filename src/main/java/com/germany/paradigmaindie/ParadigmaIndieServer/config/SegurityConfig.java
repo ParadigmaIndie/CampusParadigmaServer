@@ -34,9 +34,7 @@ public class SegurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/","index", "/css/*", "/js/*","/h2-console/**","/swagger-ui.html").permitAll()
                 .anyRequest()
                 .authenticated()
-                .and()
-                .formLogin()// Based Auth Session ID expired 30 minutes
-                    .loginPage("/login").permitAll().and().httpBasic();
+                .and().httpBasic();
 
         http
                 .csrf().disable()
