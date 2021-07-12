@@ -10,7 +10,6 @@ class ParadigmaIndieServerApplicationTest {
 
 
         @Test
-        @Disabled(value = "postgres data bases connection refused")
         void contextLoads() {
         }
 
