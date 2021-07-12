@@ -3,6 +3,7 @@ package com.germany.paradigmaindie.ParadigmaIndieServer.models;
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.Collection;
 @Entity
 @Setter
 @Getter
+
 public class Role {
 
     @Id

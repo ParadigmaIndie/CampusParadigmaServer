@@ -1,6 +1,9 @@
 package com.germany.paradigmaindie.ParadigmaIndieServer.models;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,8 +14,10 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Setter
+@Getter
 @Entity
+@Table(name = "Appuser")
 public class User implements UserDetails {
 
     @Id
@@ -20,39 +25,15 @@ public class User implements UserDetails {
     private long id;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = @JoinColumn(
-                    name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "courses_to_see",
-            joinColumns = @JoinColumn(
-                    name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "course_id", referencedColumnName = "id"))
     private Set<Course> waitingCourses;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "my_created_courses",
-            joinColumns = @JoinColumn(
-                    name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "course_id", referencedColumnName = "id"))
     private Set<Course> createdCourses;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "saw_videos_by_user",
-            joinColumns = @JoinColumn(
-                    name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "videos_id", referencedColumnName = "id"))
     private Set<Video> sawVideos;
 
     private String password;
