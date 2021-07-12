@@ -4,7 +4,7 @@
 
 *Kevin Rey* @SantiRey
 
-*Manuel Guil* @ImalGil
+*Manuel Gil* @imgildev
 
 ## Description
 This software has been created as part of a personal project for the Paradigma Indie community. This project has no commercial approach, it is maintained by the community and for the community. for that reason all contributions to it are totally welcome.
@@ -16,7 +16,7 @@ This software has been created as part of a personal project for the Paradigma I
 this server run under ***java 11*** and ***maven***, then it is necesary to have those requirements
 
 ### Database
-*Designer @Manuel Gil*
+*Designer Manuel Gil @imgildevl*
 
 Until the Production bunle the data base is enable in memory.
 
