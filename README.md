@@ -16,14 +16,17 @@ This software has been created as part of a personal project for the Paradigma I
 this server run under ***java 11*** and ***maven***, then it is necesary to have those requirements
 
 ### Database
-* Designer @Manuel Gil
+*Designer @Manuel Gil*
 
 Until the Production bunle the data base is enable in memory.
+
+In order to use Postgres Database you can in ```applicattion.properties``` file change it.
 
 ### API
 This project use Swagger as Api Documentation it is enable under the url ***```http://localhost:8080/swagger-ui.html```***
 
 ## Get started
+
 ### DOCKER
 In order to use the docker images it is necessary to follow the following information. This project consists of a divided docker file which creates the image then exports the war in a tomcat container and has a Database service.
 

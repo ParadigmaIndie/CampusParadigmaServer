@@ -20,7 +20,9 @@ services:
       - "5432:5432"
     restart: always
     environment:
-      POSTGRES_PASSWORD: example
+      POSTGRES_USER: pi
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: campusparadigma
     volumes:
       - $PWD/db_data:/var/lib/postgresql/data
     networks:
