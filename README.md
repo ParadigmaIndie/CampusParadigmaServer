@@ -2,9 +2,9 @@
 
 ***Maintainers***
 
-Kevin Rey @SantiRey
+*Kevin Rey* @SantiRey
 
-Manuel Guil @ImalGil
+*Manuel Guil* @ImalGil
 
 ## Description
 This software has been created as part of a personal project for the Paradigma Indie community. This project has no commercial approach, it is maintained by the community and for the community. for that reason all contributions to it are totally welcome.
