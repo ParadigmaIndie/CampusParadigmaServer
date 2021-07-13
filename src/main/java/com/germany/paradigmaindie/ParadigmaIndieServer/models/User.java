@@ -13,6 +13,8 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Setter
 @Getter
@@ -83,6 +85,13 @@ public class User implements UserDetails {
 
     public User() {
 
+    }
+
+    public User(String username, String password, String email, Role role_user) {
+        this.username=username;
+        this.password=password;
+        this.email=email;
+        this.roles= Stream.of(role_user).collect(Collectors.toSet());
     }
 
     @Override
