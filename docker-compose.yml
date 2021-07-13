@@ -10,6 +10,17 @@ services:
       - "8081:8080"
     depends_on:
       - campusparadigma_db
+      - email_server
+    networks:
+      - campusparadigma_net
+
+  email_server_campusparadigma:
+    image: djfarrelly/maildev
+    container_name: email_server
+    ports:
+      - "25:25"
+      - "80:80"
+    restart: always
     networks:
       - campusparadigma_net
 

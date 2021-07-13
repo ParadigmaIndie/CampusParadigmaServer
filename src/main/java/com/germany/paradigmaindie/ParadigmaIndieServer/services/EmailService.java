@@ -20,6 +20,8 @@ public class EmailService implements EmailSender {
 
     private final JavaMailSender mailSender;
 
+
+
     @Override
     @Async
     public void send(String to, String email) {
@@ -29,8 +31,8 @@ public class EmailService implements EmailSender {
                     new MimeMessageHelper(mimeMessage, "utf-8");
             helper.setText(email, true);
             helper.setTo(to);
-            helper.setSubject("Confirm your email");
-            helper.setFrom("hello@amigoscode.com");
+            helper.setSubject("Confirm u email @Paradigmaindie");
+            helper.setFrom("hello@paradigmaindie.com");
             mailSender.send(mimeMessage);
         } catch (MessagingException e) {
 
