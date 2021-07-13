@@ -1,8 +1,8 @@
 package com.germany.paradigmaindie.ParadigmaIndieServer.services;
 
+import com.germany.paradigmaindie.ParadigmaIndieServer.models.ConfirmationToken;
 import com.germany.paradigmaindie.ParadigmaIndieServer.models.Role;
 import com.germany.paradigmaindie.ParadigmaIndieServer.models.User;
-import com.germany.paradigmaindie.ParadigmaIndieServer.repositories.RoleRepository;
 import com.germany.paradigmaindie.ParadigmaIndieServer.repositories.UserRepository;
 import javassist.NotFoundException;
 import javassist.bytecode.DuplicateMemberException;
@@ -10,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -26,10 +28,16 @@ public class AppUserDetailsService implements UserDetailsService {
 
     private RoleService roleService;
 
+    private PasswordEncoder passwordEncoder;
+
+    private final ConfirmationTokenServices confirmationTokenService;
+
     @Autowired
-    public AppUserDetailsService(UserRepository userRepository, RoleService roleService) {
+    public AppUserDetailsService(UserRepository userRepository, RoleService roleService, PasswordEncoder passwordEncoder, ConfirmationTokenServices confirmationTokenServices) {
         this.userRepository = userRepository;
         this.roleService = roleService;
+        this.passwordEncoder = passwordEncoder;
+        this.confirmationTokenService = confirmationTokenServices;
     }
     //Load by Email
     @Override
@@ -67,5 +75,33 @@ public class AppUserDetailsService implements UserDetailsService {
 
     public void deleteUser(Long id){
         userRepository.deleteById(id);
+    }
+
+    public String signUpUser(User user){
+        if(userRepository.findByEmail(user.getEmail()).isPresent()){
+            throw new IllegalStateException("Email already taken");
+        }else {
+
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userRepository.save(user);
+        }
+        String token= UUID.randomUUID().toString();
+        ConfirmationToken confirmationToken= new ConfirmationToken(
+                token,
+                LocalDateTime.now(),
+                LocalDateTime.now().plusMinutes(15),
+                user
+        );
+        confirmationTokenService.saveConfirmationToken(
+                confirmationToken);
+        //TODO SEND MEAIL
+        return token;
+    }
+
+    public int enableAppUser(String email) {
+        userRepository.nonLocked(email);
+        userRepository.nonExpired(email);
+        userRepository.nonCredentialsExpired(email);
+        return userRepository.enableAppUser(email);
     }
 }
