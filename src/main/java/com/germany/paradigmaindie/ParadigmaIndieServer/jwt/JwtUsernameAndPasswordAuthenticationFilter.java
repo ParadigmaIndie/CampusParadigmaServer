@@ -2,6 +2,7 @@ package com.germany.paradigmaindie.ParadigmaIndieServer.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.germany.paradigmaindie.ParadigmaIndieServer.models.User;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -63,15 +64,25 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
     protected void successfulAuthentication(HttpServletRequest request,
                                             HttpServletResponse response,
                                             FilterChain chain,
-                                            Authentication authResult)  {
+                                            Authentication authResult) throws IOException {
 
         String token = Jwts.builder()
                 .setSubject(authResult.getName())
+                .claim("email",((User) authResult.getPrincipal()).getEmail())
                 .claim("authorities", authResult.getAuthorities())
                 .setIssuedAt(new Date())
                 .setExpiration(java.sql.Date.valueOf(LocalDate.now().plusDays(jwtConfig.getTokenExpirationAfterDays())))
                 .signWith(secretKey).compact();
 
-        response.addHeader(jwtConfig.getAuthorizationHeader(), jwtConfig.getTokenPrefix() + token);
+        response.addHeader(jwtConfig.getAuthorizationHeader(), jwtConfig.getTokenPrefix()+" " + token);
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(
+                "{\"" + jwtConfig.getTokenPrefix()+"\""+":" + "\""+token + "\"}"
+        );
+
+        //TODO Security critical in production
+        response.addHeader("Access-Control-Allow-Origin", "*");
     }
 }
