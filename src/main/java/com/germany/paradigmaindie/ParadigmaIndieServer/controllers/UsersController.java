@@ -24,7 +24,7 @@ public class UsersController {
     }
 
     @GetMapping
-    public List<User> getAllCategories(){
+    public List<User> getAllUsers(){
         return appUserDetailsService.allCategories();
     }
 
