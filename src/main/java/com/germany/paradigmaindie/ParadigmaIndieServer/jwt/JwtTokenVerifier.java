@@ -51,7 +51,7 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
         try{
             String token = authorizationHeader
                     .replace( jwtConfig.getTokenPrefix(), "");
-
+            //recive and return Jwt
             Jws<Claims> claimsJws = Jwts.parser()
                     .setSigningKey(secretKey)
                     .parseClaimsJws(token);
@@ -66,6 +66,7 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
                     .map(m -> new SimpleGrantedAuthority(m.get("authority"))).collect(Collectors.toSet());
             Authentication authentication = new UsernamePasswordAuthenticationToken(
                     username,
+
                     null,
                     authority
             );

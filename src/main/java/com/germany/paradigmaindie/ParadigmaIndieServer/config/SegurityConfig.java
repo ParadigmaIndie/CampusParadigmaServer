@@ -7,6 +7,7 @@ import com.germany.paradigmaindie.ParadigmaIndieServer.services.AppUserDetailsSe
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -62,6 +63,7 @@ public class SegurityConfig extends WebSecurityConfigurerAdapter {
                         "/login",
                         //
                         "/api/v1/registration/*").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/courses").permitAll()
                 .anyRequest()
                 .authenticated();
 

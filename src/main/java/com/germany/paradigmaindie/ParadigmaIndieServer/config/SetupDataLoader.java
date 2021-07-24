@@ -102,12 +102,29 @@ public class SetupDataLoader implements
 
     @Transactional
     Video creaVideo(){
+
         //VIDEO Test
         Video video = new Video();
         video.setName("testVideo");
         video.setUrl("VideUrl");
         video.setTags("testTags");
         video.setDescription("This is the description the video");
+
+        //VIDEO Test
+        Video video1 = new Video();
+        video1.setName("testVideo");
+        video1.setUrl("VideUrl");
+        video1.setTags("testTags");
+        video1.setDescription("This is the description the video");
+        videoRepository.save(video1);
+
+        //VIDEO Test
+        Video video2 = new Video();
+        video2.setName("testVideo");
+        video2.setUrl("VideUrl");
+        video2.setTags("testTags");
+        video2.setDescription("This is the description the video");
+        videoRepository.save(video2);
         return videoRepository.save(video);
     }
 
@@ -115,8 +132,16 @@ public class SetupDataLoader implements
     Category creacategorias(){
         //VIDEO Test
         Category category = new Category();
-        category.setName("Docker Test");
-        return categoriesRepository.save(category);
+        category.setName("Docker");
+        categoriesRepository.save(category);
+
+        Category category1 = new Category();
+        category1.setName("Git");
+        categoriesRepository.save(category1);
+
+        Category category2 = new Category();
+        category2.setName("Fundamentos");
+        return categoriesRepository.save(category2);
     }
 
     @Transactional

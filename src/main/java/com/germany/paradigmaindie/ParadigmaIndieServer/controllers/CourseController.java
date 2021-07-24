@@ -17,11 +17,13 @@ public class CourseController {
     private CourseService courseService;
 
     @Autowired
+
     public CourseController(CourseService courseService) {
         this.courseService = courseService;
     }
 
     @GetMapping
+    @CrossOrigin
     public List<Course> getAllCourses(){
         return courseService.allCourses();
     }
