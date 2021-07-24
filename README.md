@@ -1,3 +1,4 @@
+![](https://i.imgur.com/Wz59rLY.png)
 # Campus Paradigma server
 
 ***Maintainers***
@@ -10,13 +11,14 @@
 This software has been created as part of a personal project for the Paradigma Indie community. This project has no commercial approach, it is maintained by the community and for the community. for that reason all contributions to it are totally welcome.
 
 ## Software
+![](https://i.imgur.com/LUQhGfM.gif)
 
 ### Requirements
 
 this server run under ***java 11*** and ***maven***, then it is necesary to have those requirements
 
 ### Database
-*Designer Manuel Gil @imgildevl*
+*Designer Manuel Gil @imgildev*
 
 Until the Production bunle the data base is enable in memory.
 
