@@ -81,14 +81,15 @@ public class SetupDataLoader implements
     }
 
     @Transactional
-    User createUser(Optional<Role> roles, Course coursesCreated){
+    User createUser(Optional<Role> roles, Set<Course> coursesCreated, Set<Course> waiting){
         //USERS Test Creation
         User user = new User();
         user.setUsername("Test");
         user.setPassword(passwordEncoder.encode("123"));
         user.setEmail("t@t.com");
         user.setRoles(Stream.of(roles).map(role -> role.get()).collect(Collectors.toSet()));
-        user.setCreatedCourses(Stream.of(coursesCreated).collect(Collectors.toSet()));
+        user.setCreatedCourses(coursesCreated);
+        user.setWaitingCourses(waiting);
         user.setEnabled(true);
         user.setCredentialsNonExpired(true);
         user.setAccountNonExpired(true);
@@ -118,11 +119,11 @@ public class SetupDataLoader implements
     }
 
     @Transactional
-    Course creaCourses(String name, String description, Set<Video> videos, Category category){
+    Course creaCourses(String name, String description, Set<Video> videos, Category category, String tags){
         Course course = new Course();
         course.setName(name);
         course.setDescription(description);
-        course.setTags("Git");
+        course.setTags(tags);
         course.setVideos(videos);
         course.setCategorias(Stream.of(category).collect(Collectors.toSet()));
         return courseRepository.save(course);
@@ -148,9 +149,7 @@ public class SetupDataLoader implements
         Category category = creacategorias("GIT");
 
 
-        Course course1 = creaCourses("Git 2021", "Curso de git description esto es algo de lo que aprendera", Stream.of(video, video1, video2, video3).collect(Collectors.toSet()), category);
-
-        createUser(roleRepository.findByName("ROLE_ADMIN"),course1);
+        Course course1 = creaCourses("Git 2021", "Curso de git description esto es algo de lo que aprendera", Stream.of(video, video1, video2, video3).collect(Collectors.toSet()), category, "GIT");
 
         //Creacion curso 2
 
@@ -159,24 +158,26 @@ public class SetupDataLoader implements
 
         Category category1 = creacategorias("Wordpress");
 
-        Course course2 = creaCourses("Wordpress 2020", "Curso de wordpress", Stream.of(videoM, videoM1).collect(Collectors.toSet()), category1);
+        Course course2 = creaCourses("Wordpress 2020", "Curso de wordpress", Stream.of(videoM, videoM1).collect(Collectors.toSet()), category1, "Wordpress");
 
         //Creation curso 3
 
         Video videoM01 = creaVideo("Actualizar pagina de carrito automáticamente", "https://www.youtube.com/watch?v=q10Pv7_nrjE&list=PLnrCmlT1pLaB_XloJLUwWEyUcjQEj7UR3","Desarrollando un portafolio en Wordpress | Cap 1");
         Video videoM11 = creaVideo("Actualizar icono del carrito con Ajax - Woocommerce", "https://www.youtube.com/watch?v=EndHG8rZn1g&list=PLnrCmlT1pLaB_XloJLUwWEyUcjQEj7UR3&index=2","Desarrollando un portafolio en Wordpress | Cap 2");
 
-        Course course3 = creaCourses("WORDPRESS PARA DESARROLLADORES", "Curso de wordpress", Stream.of(videoM01, videoM11).collect(Collectors.toSet()), category1);
+        Course course3 = creaCourses("WORDPRESS PARA DESARROLLADORES", "Curso de wordpress", Stream.of(videoM01, videoM11).collect(Collectors.toSet()), category1, "Wordpress");
 
-        //Creation curso 3
+        //Creation curso 4
 
         Video videoP01 = creaVideo("Seguridad - Live de la comunidad Paradigma Indie", "https://www.youtube.com/watch?v=8UkHSV6Ydwg&t=4s","Desarrollando un portafolio en Wordpress | Cap 1");
         Video videoP11 = creaVideo("Influencers en la actualidad - Live de la comunidad Paradigma Indie", "https://www.youtube.com/watch?v=5PuVafHMCFk","Desarrollando un portafolio en Wordpress | Cap 2");
 
         Category category2 = creacategorias("Live");
 
-        Course course4 = creaCourses("ParadigmaIndie Live", "Live", Stream.of(videoM01, videoM11).collect(Collectors.toSet()), category2);
+        Course course4 = creaCourses("ParadigmaIndie Live", "Live", Stream.of(videoM01, videoM11).collect(Collectors.toSet()), category2, "Live");
 
+        //USER CREATION
+        createUser(roleRepository.findByName("ROLE_ADMIN"),Stream.of(course1).collect(Collectors.toSet()), Stream.of(course2, course3).collect(Collectors.toSet()));
 
 
         alreadySetup = true;

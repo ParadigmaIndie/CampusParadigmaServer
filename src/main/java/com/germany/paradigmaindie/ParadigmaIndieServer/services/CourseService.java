@@ -1,6 +1,7 @@
 package com.germany.paradigmaindie.ParadigmaIndieServer.services;
 
 import com.germany.paradigmaindie.ParadigmaIndieServer.models.Course;
+import com.germany.paradigmaindie.ParadigmaIndieServer.models.User;
 import com.germany.paradigmaindie.ParadigmaIndieServer.repositories.CourseRepository;
 import javassist.NotFoundException;
 import javassist.bytecode.DuplicateMemberException;
@@ -8,15 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class CourseService {
 
     private final CourseRepository courseRepository;
+    private final AppUserDetailsService appUserDetailsService;
 
     @Autowired
-    public CourseService(CourseRepository courseRepository) {
+    public CourseService(CourseRepository courseRepository, AppUserDetailsService appUserDetailsService) {
         this.courseRepository = courseRepository;
+        this.appUserDetailsService = appUserDetailsService;
     }
 
 
@@ -41,5 +45,10 @@ public class CourseService {
 
     public void deleteCourse(Long id){
         courseRepository.deleteById(id);
+    }
+
+    public Set<Course> getAllCoursesToSeeByUser(String email){
+        User user = (User) appUserDetailsService.loadUserByUsername(email);
+        return user.getWaitingCourses();
     }
 }
