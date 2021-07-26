@@ -1,6 +1,8 @@
 package com.germany.paradigmaindie.ParadigmaIndieServer.services;
 
+import com.germany.paradigmaindie.ParadigmaIndieServer.models.Course;
 import com.germany.paradigmaindie.ParadigmaIndieServer.models.Video;
+import com.germany.paradigmaindie.ParadigmaIndieServer.repositories.CourseRepository;
 import com.germany.paradigmaindie.ParadigmaIndieServer.repositories.VideoRepository;
 import javassist.NotFoundException;
 import javassist.bytecode.DuplicateMemberException;
@@ -8,16 +10,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class VideoService {
 
     private final VideoRepository videoRepository;
+    public final CourseRepository courseRepository;
 
     @Autowired
-    public VideoService(VideoRepository videoRepository) {
+    public VideoService(VideoRepository videoRepository, CourseRepository courseRepository) {
         this.videoRepository = videoRepository;
+        this.courseRepository = courseRepository;
     }
+
+
 
     public List<Video> getAllVideo() {
         return videoRepository.findAll();
@@ -46,5 +54,11 @@ public class VideoService {
     // INFO https://fullstackdeveloper.guru/2020/08/17/what-are-the-different-ways-to-delete-a-child-entity-in-jpa-hibernate-through-spring-data/
     public void deleteVideo(Long id){
         videoRepository.deleteById(id);
+    }
+
+    public Set<Video> getAllVideosBycourse(long courseid) throws NotFoundException {
+        return Optional.of(courseRepository.getById(courseid))
+                .orElseThrow(() -> new NotFoundException(String.format("Course %s not found", String.valueOf(courseid)))).getVideos();
+
     }
 }

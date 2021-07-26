@@ -3,7 +3,6 @@ package com.germany.paradigmaindie.ParadigmaIndieServer.controllers;
 
 import com.germany.paradigmaindie.ParadigmaIndieServer.models.Course;
 import com.germany.paradigmaindie.ParadigmaIndieServer.services.CourseService;
-import com.google.gson.Gson;
 import com.sun.istack.NotNull;
 import javassist.NotFoundException;
 import javassist.bytecode.DuplicateMemberException;

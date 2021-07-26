@@ -1,6 +1,7 @@
 package com.germany.paradigmaindie.ParadigmaIndieServer.controllers;
 
 
+import com.germany.paradigmaindie.ParadigmaIndieServer.models.Course;
 import com.germany.paradigmaindie.ParadigmaIndieServer.models.Video;
 import com.germany.paradigmaindie.ParadigmaIndieServer.services.VideoService;
 import com.sun.istack.NotNull;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/v1/videos")
@@ -28,11 +30,7 @@ public class VideoController {
 
     @PostMapping
     public Video createVideo(@RequestBody @NotNull Video video) throws DuplicateMemberException {
-
             return videoService.createVideos(video);
-
-
-
     }
 
     @PutMapping(path = "{videoid}")
@@ -46,5 +44,12 @@ public class VideoController {
     public String deleteVideo(@PathVariable("videoid") Long id){
         videoService.deleteVideo(id);
         return "Delete Success";
+    }
+
+    @CrossOrigin
+    @GetMapping(path= "/{courseid}")
+    public Set<Video> getCoursesToSeebyUser(@PathVariable("courseid") @NotNull String courseid) throws NotFoundException {
+
+        return videoService.getAllVideosBycourse(Long.parseLong(courseid));
     }
 }
