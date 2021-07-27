@@ -53,6 +53,8 @@ public class SegurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/","index", "/css/*", "/js/*",
                         "/h2-console/**",
+                        "/register",
+
                         //
                         "/v2/api-docs",
                         "/configuration/ui",
@@ -65,12 +67,13 @@ public class SegurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/v1/registration/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/courses").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/videos/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/videos/singel/**").permitAll()
                 .anyRequest()
                 .authenticated();
 
 
 
-                //http.headers().frameOptions().disable();
+                http.headers().frameOptions().disable();
     }
 
     // Used by spring security if CORS is enabled.

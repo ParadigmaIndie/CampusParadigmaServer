@@ -47,6 +47,12 @@ public class VideoController {
     }
 
     @CrossOrigin
+    @GetMapping(path= "/singel/{videoid}")
+    public Video getVideoById(@PathVariable("videoid") String id) throws NotFoundException {
+        return videoService.getVideoByID(Long.parseLong(id));
+    }
+
+    @CrossOrigin
     @GetMapping(path= "/{courseid}")
     public Set<Video> getCoursesToSeebyUser(@PathVariable("courseid") @NotNull String courseid) throws NotFoundException {
 

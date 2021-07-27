@@ -141,10 +141,10 @@ public class SetupDataLoader implements
         createRoleIfNotFound("ROLE_ADMIN", Arrays.asList(readPrivilege, writePrivilege));
         createRoleIfNotFound("ROLE_USER", Arrays.asList(readPrivilege));
 
-        Video video = creaVideo("Markdown", "https://www.youtube.com/watch?v=fxJk-AN7_-4","Markdown description");
-        Video video1 = creaVideo("Cómo instalar Git en Mac y Linux", "https://www.youtube.com/watch?v=VY7foMQLsFQ&t=485s","Cómo instalar Git en Mac y Linux | Curso de Git y GitHub Desde Cero 2021");
-        Video video2 = creaVideo("Cómo instalar Git en Windows", "https://www.youtube.com/watch?v=HZ4IjC3H2xw","Curso de Git y GitHub Desde Cero 2021");
-        Video video3 = creaVideo("Cómo configurar Git ", "https://www.youtube.com/watch?v=ZOsAfmnBq60","Cómo configurar Git | Curso de Git y GitHub Desde Cero 2021");
+        Video video = creaVideo("Markdown", "https://www.youtube.com/embed/fxJk-AN7_-4","Markdown description");
+        Video video1 = creaVideo("Cómo instalar Git en Mac y Linux", "https://www.youtube.com/embed/VY7foMQLsFQ&t=485s","Cómo instalar Git en Mac y Linux | Curso de Git y GitHub Desde Cero 2021");
+        Video video2 = creaVideo("Cómo instalar Git en Windows", "https://www.youtube.com/embed/HZ4IjC3H2xw","Curso de Git y GitHub Desde Cero 2021");
+        Video video3 = creaVideo("Cómo configurar Git ", "https://www.youtube.com/embed/ZOsAfmnBq60","Cómo configurar Git | Curso de Git y GitHub Desde Cero 2021");
 
         Category category = creacategorias("GIT");
 
@@ -152,9 +152,8 @@ public class SetupDataLoader implements
         Course course1 = creaCourses("Git 2021", "Curso de git description esto es algo de lo que aprendera", Stream.of(video, video1, video2, video3).collect(Collectors.toSet()), category, "GIT");
 
         //Creacion curso 2
-
-        Video videoM = creaVideo("Wordpress | Cap 1", "https://www.youtube.com/watch?v=K42aK_OkRyc&list=PLnrCmlT1pLaA5y4QmtHDjCLav6Dx3Z8v8","Desarrollando un portafolio en Wordpress | Cap 1");
-        Video videoM1 = creaVideo("Wordpress | Cap 2", "https://www.youtube.com/watch?v=i98Ai7MGJ50&list=PLnrCmlT1pLaA5y4QmtHDjCLav6Dx3Z8v8&index=2","Desarrollando un portafolio en Wordpress | Cap 2");
+        Video videoM = creaVideo("Wordpress | Cap 1", "https://www.youtube.com/embed/K42aK_OkRyc&list=PLnrCmlT1pLaA5y4QmtHDjCLav6Dx3Z8v8","Desarrollando un portafolio en Wordpress | Cap 1");
+        Video videoM1 = creaVideo("Wordpress | Cap 2", "https://www.youtube.com/embed/i98Ai7MGJ50&list=PLnrCmlT1pLaA5y4QmtHDjCLav6Dx3Z8v8&index=2","Desarrollando un portafolio en Wordpress | Cap 2");
 
         Category category1 = creacategorias("Wordpress");
 
@@ -162,15 +161,15 @@ public class SetupDataLoader implements
 
         //Creation curso 3
 
-        Video videoM01 = creaVideo("Actualizar pagina de carrito automáticamente", "https://www.youtube.com/watch?v=q10Pv7_nrjE&list=PLnrCmlT1pLaB_XloJLUwWEyUcjQEj7UR3","Desarrollando un portafolio en Wordpress | Cap 1");
-        Video videoM11 = creaVideo("Actualizar icono del carrito con Ajax - Woocommerce", "https://www.youtube.com/watch?v=EndHG8rZn1g&list=PLnrCmlT1pLaB_XloJLUwWEyUcjQEj7UR3&index=2","Desarrollando un portafolio en Wordpress | Cap 2");
+        Video videoM01 = creaVideo("Actualizar pagina de carrito automáticamente", "https://www.youtube.com/embed/q10Pv7_nrjE&list=PLnrCmlT1pLaB_XloJLUwWEyUcjQEj7UR3","Desarrollando un portafolio en Wordpress | Cap 1");
+        Video videoM11 = creaVideo("Actualizar icono del carrito con Ajax - Woocommerce", "https://www.youtube.com/embed/EndHG8rZn1g&list=PLnrCmlT1pLaB_XloJLUwWEyUcjQEj7UR3&index=2","Desarrollando un portafolio en Wordpress | Cap 2");
 
         Course course3 = creaCourses("WORDPRESS PARA DESARROLLADORES", "Curso de wordpress", Stream.of(videoM01, videoM11).collect(Collectors.toSet()), category1, "Wordpress");
 
         //Creation curso 4
 
-        Video videoP01 = creaVideo("Seguridad - Live de la comunidad Paradigma Indie", "https://www.youtube.com/watch?v=8UkHSV6Ydwg&t=4s","Desarrollando un portafolio en Wordpress | Cap 1");
-        Video videoP11 = creaVideo("Influencers en la actualidad - Live de la comunidad Paradigma Indie", "https://www.youtube.com/watch?v=5PuVafHMCFk","Desarrollando un portafolio en Wordpress | Cap 2");
+        Video videoP01 = creaVideo("Seguridad - Live de la comunidad Paradigma Indie", "https://www.youtube.com/embed/8UkHSV6Ydwg&t=4s","Desarrollando un portafolio en Wordpress | Cap 1");
+        Video videoP11 = creaVideo("Influencers en la actualidad - Live de la comunidad Paradigma Indie", "https://www.youtube.com/embed/5PuVafHMCFk","Desarrollando un portafolio en Wordpress | Cap 2");
 
         Category category2 = creacategorias("Live");
 

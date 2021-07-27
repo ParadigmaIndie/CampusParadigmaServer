@@ -52,13 +52,18 @@ public class VideoService {
     }
     //TODO When a video is used by a course is not posible to delete
     // INFO https://fullstackdeveloper.guru/2020/08/17/what-are-the-different-ways-to-delete-a-child-entity-in-jpa-hibernate-through-spring-data/
-    public void deleteVideo(Long id){
+    public void deleteVideo(long id){
         videoRepository.deleteById(id);
+    }
+
+    public Video getVideoByID(long id) throws NotFoundException {
+
+        return videoRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Video %s not found", id)));
     }
 
     public Set<Video> getAllVideosBycourse(long courseid) throws NotFoundException {
         return Optional.of(courseRepository.getById(courseid))
-                .orElseThrow(() -> new NotFoundException(String.format("Course %s not found", String.valueOf(courseid)))).getVideos();
+                .orElseThrow(() -> new NotFoundException(String.format("Video from courses %s not found", courseid))).getVideos();
 
     }
 }
