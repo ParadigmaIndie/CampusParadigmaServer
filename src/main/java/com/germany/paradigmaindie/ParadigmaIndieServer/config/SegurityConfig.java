@@ -48,6 +48,8 @@ public class SegurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+                //TODO Be CareFull WITH CORS IN PRODUCTION
+                .addFilterBefore(new CrosFilter(),JwtUsernameAndPasswordAuthenticationFilter.class)
                 .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig,  secretKey))
                 .addFilterAfter(new JwtTokenVerifier(jwtConfig, secretKey),JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
@@ -64,7 +66,8 @@ public class SegurityConfig extends WebSecurityConfigurerAdapter {
                         "/webjars/**",
                         "/login",
                         //
-                        "/api/v1/registration/*").permitAll()
+                        "/api/v1/registration/**",
+                        "/api/v1/registration").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/courses").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/videos/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/videos/singel/**").permitAll()

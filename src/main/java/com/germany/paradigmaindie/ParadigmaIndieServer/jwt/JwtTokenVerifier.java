@@ -41,6 +41,8 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
 
         String authorizationHeader = request.getHeader(jwtConfig.getAuthorizationHeader());
 
+
+
         if(Strings.isNullOrEmpty(authorizationHeader)
                 || !authorizationHeader.startsWith(jwtConfig.getTokenPrefix()))
         {
