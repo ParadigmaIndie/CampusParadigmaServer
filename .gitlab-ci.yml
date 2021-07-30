@@ -1,5 +1,5 @@
 stages:
-  - prepare
+  - cleaning
   - test
   - build
   - deploy
@@ -9,12 +9,12 @@ cache:
     - ./.m2/repository
 
 clean_step:
-  stage: prepare
+  stage: cleaning
   image: maven
   script:
     - "mvn install"
 
-build_process:
+test_step:
   stage: test
   image: maven
   script:
@@ -25,4 +25,3 @@ build_process:
   image: maven
   script:
     - "mvn install"
-
