@@ -12,7 +12,7 @@ clean_step:
   stage: cleaning
   image: maven
   script:
-    - "mvn install"
+    - "mvn clean"
 
 test_step:
   stage: test
