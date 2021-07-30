@@ -1,0 +1,28 @@
+stages:
+  - prepare
+  - test
+  - build
+  - deploy
+
+cache:
+  paths:
+    - ./.m2/repository
+
+clean_step:
+  stage: prepare
+  image: maven
+  script:
+    - "mvn install"
+
+build_process:
+  stage: test
+  image: maven
+  script:
+    - "mvn test"
+
+build_process:
+  stage: build
+  image: maven
+  script:
+    - "mvn install"
+
