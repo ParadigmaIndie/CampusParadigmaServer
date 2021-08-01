@@ -51,4 +51,9 @@ public class CourseService {
         User user = (User) appUserDetailsService.loadUserByUsername(email);
         return user.getWaitingCourses();
     }
+
+    public Set<Course> getAllCoursesMadeByUser(String email){
+        User user = (User) appUserDetailsService.loadUserByUsername(email);
+        return user.getCreatedCourses();
+    }
 }

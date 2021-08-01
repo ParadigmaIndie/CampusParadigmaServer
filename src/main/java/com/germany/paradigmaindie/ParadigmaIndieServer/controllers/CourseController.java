@@ -57,4 +57,10 @@ public class CourseController {
         return courseService.getAllCoursesToSeeByUser(email);
     }
 
+    @CrossOrigin
+    @GetMapping(path= "/made/{email}")
+    public Set<Course> getAllCoursesMadeByUser(@PathVariable("email") @NotNull String email){
+
+        return courseService.getAllCoursesMadeByUser(email);
+    }
 }

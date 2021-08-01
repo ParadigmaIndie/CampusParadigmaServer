@@ -6,5 +6,3 @@ FROM tomcat
 COPY --from=builder /home/app/target/campusparadigma.war /usr/local/tomcat/webapps/
 EXPOSE 8080
 
-
-

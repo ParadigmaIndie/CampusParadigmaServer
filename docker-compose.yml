@@ -1,5 +1,22 @@
 version: "3.9"
 services:
+  proxy_ngnix:
+    image: nginx
+    container_name: proxy_nginx
+    build:
+      context: .
+      dockerfile: Dockerfile_front
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "80:80"
+    depends_on:
+      - campusparadigma_db
+      - email_server
+      - tomcat
+    networks:
+      - campusparadigma_net
+
   tomcat:
     image: tomcat
     container_name: campusparadigma_server
@@ -19,7 +36,7 @@ services:
     container_name: email_server
     ports:
       - "25:25"
-      - "80:80"
+      - "81:80"
     restart: always
     networks:
       - campusparadigma_net
