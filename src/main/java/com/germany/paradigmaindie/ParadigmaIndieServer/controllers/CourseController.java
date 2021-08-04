@@ -2,6 +2,7 @@ package com.germany.paradigmaindie.ParadigmaIndieServer.controllers;
 
 
 import com.germany.paradigmaindie.ParadigmaIndieServer.models.Course;
+import com.germany.paradigmaindie.ParadigmaIndieServer.models.User;
 import com.germany.paradigmaindie.ParadigmaIndieServer.services.CourseService;
 import com.sun.istack.NotNull;
 import javassist.NotFoundException;
@@ -45,22 +46,23 @@ public class CourseController {
 
     }
 
+    @CrossOrigin
     @DeleteMapping(path= "{courseid}")
-    public String deleteCourse(@PathVariable("courseid") Long id){
-        courseService.deleteCourse(id);
-        return "200";
+    public Set<Course> deleteCourse(@PathVariable("courseid") Long id){
+        Set<Course> courses = courseService.deleteCourse(id);
+        return courses;
     }
     @CrossOrigin
     @GetMapping(path= "/tosee/{email}")
     public Set<Course> getCoursesToSeebyUser(@PathVariable("email") @NotNull String email){
-
         return courseService.getAllCoursesToSeeByUser(email);
     }
 
     @CrossOrigin
     @GetMapping(path= "/made/{email}")
     public Set<Course> getAllCoursesMadeByUser(@PathVariable("email") @NotNull String email){
-
         return courseService.getAllCoursesMadeByUser(email);
     }
+
+
 }

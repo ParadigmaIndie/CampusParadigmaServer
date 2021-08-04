@@ -1,5 +1,6 @@
 package com.germany.paradigmaindie.ParadigmaIndieServer.repositories;
 
+import com.germany.paradigmaindie.ParadigmaIndieServer.models.Course;
 import com.germany.paradigmaindie.ParadigmaIndieServer.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -13,7 +14,10 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByEmail(String name);
+
     Optional<User> findByUsername(String name);
+
+    Optional<User> findByCreatedCourses(Course course);
 
     @Modifying
     @Query("UPDATE User C set C.username = :#{#name} where C.id = :#{#id}")

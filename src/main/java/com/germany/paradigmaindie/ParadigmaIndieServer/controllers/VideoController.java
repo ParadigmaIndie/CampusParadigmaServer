@@ -40,10 +40,11 @@ public class VideoController {
 
     }
 
+    @CrossOrigin
     @DeleteMapping(path= "{videoid}")
-    public String deleteVideo(@PathVariable("videoid") Long id){
-        videoService.deleteVideo(id);
-        return "Delete Success";
+    public Set<Video> deleteVideo(@PathVariable("videoid") Long id){
+        Set<Video> videosCourse = videoService.deleteVideo(id);
+        return videosCourse;
     }
 
     @CrossOrigin
