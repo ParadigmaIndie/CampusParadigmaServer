@@ -104,4 +104,5 @@ public class AppUserDetailsService implements UserDetailsService {
         userRepository.nonCredentialsExpired(email);
         return userRepository.enableAppUser(email);
     }
+
 }

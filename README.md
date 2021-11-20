@@ -18,7 +18,7 @@ This software has been created as part of a personal project for the Paradigma I
 this server run under ***java 11*** and ***maven***, then it is necesary to have those requirements
 
 ### Database
-*Designer Manuel Gil @imgildevl*
+*Designer Manuel Gil @imgildev*
 
 Until the Production bunle the data base is enable in memory.
 

@@ -1,6 +1,7 @@
 package com.germany.paradigmaindie.ParadigmaIndieServer.repositories;
 
 import com.germany.paradigmaindie.ParadigmaIndieServer.models.Course;
+import com.germany.paradigmaindie.ParadigmaIndieServer.models.Video;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -17,4 +18,5 @@ public interface CourseRepository extends JpaRepository<Course,Long> {
     @Query("UPDATE Course C set C.name = :#{#name} where C.id = :#{#id}")
     void updateCourse(@Param(value = "id") long id, @Param(value = "name") String name);
 
+    Optional<Course> findByVideos(Video video);
 }

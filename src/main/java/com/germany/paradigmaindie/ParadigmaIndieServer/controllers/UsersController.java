@@ -24,7 +24,7 @@ public class UsersController {
     }
 
     @GetMapping
-    public List<User> getAllCategories(){
+    public List<User> getAllUsers(){
         return appUserDetailsService.allCategories();
     }
 
@@ -37,8 +37,9 @@ public class UsersController {
     @PutMapping(path = "{userid}")
     public User updatedUser(@PathVariable("userid") @NotNull Long id, @NotNull @RequestBody User user) throws NotFoundException {
         return appUserDetailsService.updatedUser(user, id);
-
     }
+
+
 
     @DeleteMapping(path= "{userid}")
     public String deleteUser(@PathVariable("userid") Long id){

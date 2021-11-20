@@ -101,7 +101,7 @@ public class User implements UserDetails {
                 ).collect(Collectors.toSet());*/
         Set<SimpleGrantedAuthority> grantedautorities=new HashSet<>();
         for (Role r :
-                getRoles()) {
+                this.getRoles()) {
             for (Privilege p:
                  r.getPrivileges()) {
                     grantedautorities.add(new SimpleGrantedAuthority(p.getName()));

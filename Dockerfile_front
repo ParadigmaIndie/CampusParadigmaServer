@@ -1,0 +1,8 @@
+FROM node as builderFront
+RUN git clone https://github.com/ParadigmaIndie/CampusParadigmaFrontend.git /home/app/
+WORKDIR /home/app/CampusParadigmaFrontend
+RUN echo "hello world"
+RUN npm install && npm run build
+
+FROM nginx 
+COPY --from=builderFront /home/app/dist /usr/share/nginx/html
