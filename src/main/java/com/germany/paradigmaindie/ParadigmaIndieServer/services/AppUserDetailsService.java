@@ -100,7 +100,7 @@ public class AppUserDetailsService implements UserDetailsService {
 
         String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
         emailSender.send(
-                user.getEmail()),
+                user.getEmail(),
                 buildEmail(user.getUsername(), link));
 
         return token;
